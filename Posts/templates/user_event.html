@@ -1,0 +1,41 @@
+{% extends base3 %} {% load static %} {% block searchform %}
+<form
+  class="form-inline my-2 my-lg-0 ml-5"
+  action="{% url 'search-events' %}"
+  method="get">
+
+  <input name="p" type="text" placeholder="Cauta evenimente.." />
+  <button class="btn btn-success my-2 my-sm-0 ml-4" type="submit">
+    Cautare
+  </button>
+</form>
+{% endblock searchform %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      {% for event in events %}
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h1 class="card-text text-dark">{{ event.title }}</h1>
+          <a href="{{ event.user_name.profile.get_absolute_url }}"> <img
+              src="{{ event.user_name.avatar.url }}"
+              class="rounded-circle"
+              width="30"
+              height="30"
+              alt=""
+          /></a>
+          <div class="container"><h2> {{event.location }} </h2></div>
+          <a
+            class="text-dark"
+            href="{{ avatar.user_name.profile.get_absolute_url }}"
+            ><b>{{ event.author }}</b></a
+          >
+          <br /><small class="text-muted"
+            >Adaugat pe {{ event.data}}</small
+          >
+          <br /><br /></div></div></div>
+          {% endfor %}
+          </div>
+
+<!--          <p class="card-text text-dark">{{ event.location }}</p>-->
+        </div>

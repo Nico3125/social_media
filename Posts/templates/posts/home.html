@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Acasa{% endblock %}
+
+{% block content %}
+
+
+<div class="intro">
+    <h1>Hai la joaca!</h1>
+    <p>Programeaza online intalnirile de joaca ale copilului</p>
+    {% if user.is_authenticated %}
+        Salutare {{ user.username }}!
+     <p><a href="{% url 'logout' %}">Deconecteaza-te</a></p>
+        <p><a href="{% url 'password_reset' %}">Schimba parola</a></p>
+    {% else %}
+        <p>Nu esti conectat..</p>
+
+    <a href={'login'} class="ml-2"></a>
+    <a href="{% url 'login' %}">
+        <button> Conecteaza-te</button>
+    {% endif %}
+    </a>
+
+</div>
+
+<div class="intalniri">
+
+    <div> {% for intalnire in intalniri %}
+        <article class="media content-section">
+            <div class="col">
+                <h1>{{ intalnire.Title }}</h1>
+                <a class="mr-2" href="#"><p> Creat de {{intalnire.Autor}}</p></a>
+                <h2><a class="article-content">Joaca-te cu {{intalnire.Nume}} in varsta de {{intalnire.Varsta}}</a></h2>
+                <small class="text-muted">{{intalnire.Data}} la ora {{intalnire.Ora}}</small>
+                <p> {{intalnire.Locatia}}</p>
+                {% endfor %}
+            </div>
+        </article>
+    </div>
+
+
+</div>
+{% endblock %}

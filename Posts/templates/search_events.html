@@ -1,0 +1,46 @@
+{% extends "base3.html" %} {% load static %}  {% block content %}
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-8">
+            {% if not events %}
+            <br/>
+            <h2><i>Nu s-au adunat copii la joaca!</i></h2>
+            {% endif %}
+            {% for event in events %}
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <a href="{{ event.author.profile.get_absolute_url }}"
+                    ><img
+                            src="{{ event.author.avatar.url }}"
+                            class="rounded-circle"
+                            width="30"
+                            height="30"
+                            alt=""
+                    /></a>
+                    <a
+                            class="text-dark"
+                            href="{{ event.author.profile.get_absolute_url }}"
+                    ><b>{{ event.author }}</b></a
+                    >
+                    <br/><small class="text-muted"
+                >Posted on {{ event.data }}</small
+                >
+                    <br/><br/>
+                    <p class="card-text text-dark">{{ event.title }}</p>
+                    <p class="card-text text-dark">{{ event.location }}</p>
+                </div>
+                {% endfor %}
+
+                <!--                {% if event.location %}-->
+                <!--                <br/>-->
+                <!--                <p class="text-danger ml-3">-->
+                <!--                    <b>Location: <i>{{ event.location }}</i></b>-->
+                <!--                </p>-->
+                <!--                {% endif %}-->
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

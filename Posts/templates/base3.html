@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=1"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+
+    <!--    <link-->
+    <!--      rel="icon"-->
+    <!--      type="image/png"-->
+    <!--      href="link catre imagine pe care as vrea sa o pun ca favicon"-->
+    <!--    />-->
+    <!-- Bootstrap CSS -->
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+    />
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://dl.dropboxusercontent.com/s/ecyb1drs5j1jyjf/styles.css?dl=0"
+    />
+
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+    /* CSS for header */
+    .navbar-nav. nav-item nav-link{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #11a1bb;
+    }
+
+    .navbar-brand  {
+      font-size: 45px;
+      font-family: 'Sriracha', cursive;
+      color: #0d0d0d;
+      text-decoration: none;
+      margin-left: 30px;
+    }
+    .collapse navbar-collapse .a{
+      text-decoration: none;
+      color: #000;
+      padding: 35px 20px;
+    }
+
+    .navbar-toggler {
+      background-color: #5edaf0;
+      color: #000;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4)
+    }
+
+
+
+    </style>
+
+    <title>Hai la joaca!</title>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-info justify-content-between">
+    <a class="navbar-brand ml-4 mr-4" href="{% url 'profile' %}"><b>Hai la joaca!</b></a>
+    <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+    >
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="{% url 'home' %}">Acasa</a>
+            <a class="nav-item nav-link" href="{% url 'users_list' %}"
+            >Fa-ti prieteni</a
+            >
+            {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'friend_list' %}"
+            >Prieteni</a
+            >
+            <a class="nav-item nav-link" href="{% url 'edit_profile' %}">Contul meu</a>
+            <a class="nav-item nav-link" href="{% url 'create-event' %}"
+            >Creeaza intalnire de joaca!</a
+            >
+            <a
+                    class="nav-item nav-link btn btn-secondary btn-sm ml-5 text-light"
+                    href="{% url 'logout' %}"
+            >Logout</a
+            >
+            {% else %}
+            <a
+                    class="nav-item nav-link btn btn-success ml-4 text-light"
+                    href="{% url 'login' %}"
+            >Logare</a
+            >
+            <a
+                    class="nav-item nav-link btn btn-info ml-3 text-light"
+                    href="{% url 'posts_inregistrare' %} "
+            >Inregistreaza-te!</a
+            >
+                    <a class="nav-item nav-link btn btn-info ml-2 text-light" href="{% url 'posts_despre' %}">Despre</a>
+                    <a class="nav-item nav-link btn btn-info ml-1 text-light" href="{% url 'posts_acasa' %}">Acasa</a>
+
+            {% endif %}
+
+            <form
+                    class="form-inline my-2 my-lg-0 ml-5"
+                    action="{% url 'search-events' %}"
+                    method="get"
+            >
+
+                <input name="q" type="text" placeholder="Cauta evenimente.."/>
+                <button class="btn btn-success my-2 my-sm-0 ml-4" type="submit">
+                    Cautare
+                </button>
+            </form>
+
+        </div>
+    </div>
+</nav>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{message.tags}}">
+            {{message}}
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+<div class="container">{% block content %}{% endblock content %}</div>
+
+
+<!-- JS Files -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+{% block jsfiles %}{% endblock jsfiles %}
+</body>
+</html>
