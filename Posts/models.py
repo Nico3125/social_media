@@ -60,7 +60,7 @@ class Location(models.Model):
 
 class Event(models.Model):
     title = models.CharField(max_length=100)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True,blank=True)
     nume = models.CharField(max_length=255)
     varsta = models.CharField(max_length=100)
     data = models.DateTimeField(auto_now=True)

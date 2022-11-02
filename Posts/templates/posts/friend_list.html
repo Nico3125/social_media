@@ -1,23 +1,28 @@
-{% extends "base3.html" %} {% load static %} {% block searchform %}
+{% extends "base3.html" %}
+{% load static %}
 {% block content %}
 
 <div class="container">
-  <div class="row">
-    <div class="col-md-8">
-      {% if friends %}
-      <div class="card card-signin my-5">
-        <div class="card-body">
-          {% for friend in friends %}
-          <a href="{{ user_p.get_absolute_url }}"
-            ><img
-              src="{{ user_p.avatar.url }}"
-              class="rounded mr-2"
-              width="80"
-              height="80"
-              alt="imaginea de profil"
-          /></a>
-          <a class="text-dark" href="{{ user_p.get_absolute_url }}"
-            ><b>{{ friends }}</b></a
-          >
-          {% endfor %}
-        </div></div></div></div></div>
+    <div class="row">
+        <div class="col-md-8">
+            {% if friends %}
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    {% for friend in friends %}
+                    <a href="{{ user_p.get_absolute_url }}">
+                        <img
+                                src="{{ user_p.avatar.url }}"
+                                class="rounded mr-2"
+                                width="80"
+                                height="80"
+                                alt="imaginea de profil"/>
+                    </a>
+                    <a class="text-dark" href="{{ user_p.get_absolute_url }}"><b>{{ friends }}</b></a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

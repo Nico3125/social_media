@@ -109,7 +109,7 @@ def users_list(request):
         'users': friends,
         'sent': sent_to
     }
-    return render(request, "users_list.html", context)
+    return render(request, "posts/users_list.html", context)
 
 
 def friend_list(request):
@@ -118,7 +118,7 @@ def friend_list(request):
     context = {
         'friend_list': friends
     }
-    return render(request, "post/friend_list.html", context)
+    return render(request, "posts/friend_list.html", context)
 
 
 @login_required
@@ -173,10 +173,12 @@ def delete_friend_request(request, id):
 
 
 @login_required
-def profile_view(request, slug):
-    p = Profile.objects.filter(slug=slug).first()
-    # print(p)
-    u = p.user
+def profile_view(request):
+    # p = Profile.objects.filter(slug=slug).first()
+    # # print(p)
+    # u = p.user
+    u = request.user
+    p = Profile.objects.get(user=u)
     sent_friend_requests = FriendRequest.objects.filter(from_user=p.user)
     rec_friend_requests = FriendRequest.objects.filter(to_user=p.user)
     user_events = Event.objects.filter(user=u)
@@ -207,7 +209,7 @@ def profile_view(request, slug):
         'events_count': user_events.count
     }
 
-    return render(request, "profile.html", context)
+    return render(request, "posts/profile.html", context)
 
 @login_required
 def edit_profile(request):
