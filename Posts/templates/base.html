@@ -12,10 +12,11 @@
     @import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
 
     body {
+
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-<!--      background-image: url("https://www.freepik.com/free-photo/cute-little-child-summer-field-with-kite_5251348.htm");&ndash;&gt;-->
+      background-image: "url('https://www.freepik.com/free-photo/cute-little-child-summer-field-with-kite_5251348.htm')"
     }
 
     /* CSS for header */
@@ -86,23 +87,22 @@
       font-size: 20px;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4)
+      box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4);
+    }
+    body {
+      background-image: url("media/brother-sister-playing-with-kite-plane-field-sunset.jpg");
+      height: auto;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
     }
 
-
-       .intalniri {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 0px 20px;
-    }
-       .alert alert {
-      padding: 20px;
-      background-color: #0d798c; /* Red */
-      color: white;
-      margin-bottom: 15px;
-    }
+<!--       .alert alert {-->
+<!--      padding: 20px;-->
+<!--      background-color: #0d798c; /* Red */-->
+<!--      color: white;-->
+<!--      margin-bottom: 15px;-->
+<!--    }-->
 
 
 
@@ -110,9 +110,9 @@
 
     </style>
 </head>
-<body style="background-image: url('https://www.freepik.com/free-photo/cute-little-child-summer-field-with-kite_5251348.htm')">
+<body>
 <header class="header">
-    <a href="{% url 'posts_acasa' %}" class="logo">Acasa</a>
+    <a href="{% url 'posts_acasa' %}" class="logo">Hai la joaca!</a>
     <nav class="nav-items">
         <a href="{% url 'posts_acasa' %}">Acasa</a>
         <a href="{% url 'posts_despre' %}">Despre</a>
@@ -127,8 +127,11 @@
 
 {% if messages %}
     {% for message in messages %}
-        <div class="alert alert-{{message.tags}}">
-            {{message}}
+        <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert" >
+            <strong>Mesaj</strong>{{message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+  </button>
         </div>
     {% endfor %}
 {% endif %}

@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'location_field.apps.DefaultConfig',
     'crispy_forms',
-
+    # 'django.contrib.gis',
+   # 'mapwidgets',
+   #  'django.contrib.gis.db.backends.postgis',
 
 
 ]
@@ -85,7 +87,9 @@ WSGI_APPLICATION = 'Mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
+        # 'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': BASE_DIR / 'db.sqlite3',
+
     }
 }
 

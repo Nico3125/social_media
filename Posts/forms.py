@@ -8,7 +8,7 @@ from .models import Profile
 class NewEventForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ['title', 'location', ]
+        fields = ['title', 'nume', 'varsta', 'location', ]
 
 
 class CreateUserForm(UserCreationForm):

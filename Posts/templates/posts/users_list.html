@@ -2,3 +2,75 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
+<style>
+.media {
+    display: flex;
+    padding: 20px;
+    }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 40px;
+}
+<!--.responsive {-->
+<!--  width: 10%;-->
+<!--  height: auto;-->
+<!--  border: 5px solid #555;-->
+<!--}-->
+
+</style>
+
+<div class="media">
+    <div class="card card-signin my-8">
+        <a href="{{ request.user.profile.get_absolute_url }}">
+            <img class="card-img-top" src="{{ user.profile.avatar.url }}" style="max-height:250px;width:250"></a>
+        <div class="grid-container">
+
+            <div class="grid-container-child">
+                <h5 class="card-title text-center">{{ request.user }}</h5>
+                <h6 class="text-center">
+                    {{ request.user.profile.friends.count }}
+                    <a href="{% url 'friend_list' %}">Prieteni</a>
+                </h6>
+            </div>
+
+        </div>
+    </div>
+    <hr>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                {% if users %}
+                <div class="card card-signin my-6">
+                    <div class="card-body">
+                        {% for user_p in users %}
+                        <a href="{{ user_p.get_absolute_url }}"><img src="{{ user_p.avatar.url }}"
+                                                                      class="rounded mr-2" width="50" height="50"
+                                                                     alt=""></a>
+                        <a class="text-dark" href="{{ user_p.get_absolute_url }}"><b>{{ user_p }}</b></a>
+
+                        {% if not user_p.user in sent %}
+                            <small class="float-right">
+                            <a class="btn btn-primary mr-2" href="{% url 'send_friend_request' user_p.id %}">Adauga
+                                prieten</a>
+                        </small>
+                        {% else %}
+                        <small class="float-right">
+                            <a class="btn btn-warning mr-2" href="{% url 'cancel_friend_request' user_p.id %}">Anuleaza
+                                cererea</a>
+                        </small>
+                        {% endif %}
+                        <br/><br/>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

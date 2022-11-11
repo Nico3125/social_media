@@ -127,7 +127,7 @@ def send_friend_request(request, id):
     frequest, created = FriendRequest.objects.get_or_create(
         from_user=request.user,
         to_user=user)
-    return HttpResponseRedirect(f'posts/{user.profile.slug}')
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 @login_required
@@ -137,7 +137,7 @@ def cancel_friend_request(request, id):
         from_user=request.user,
         to_user=user).first()
     frequest.delete()
-    return HttpResponseRedirect(f'posts/{user.profile.slug}')
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 @login_required
@@ -152,7 +152,7 @@ def accept_friend_request(request, id):
         request_rev = FriendRequest.objects.filter(from_user=request.user, to_user=from_user).first()
         request_rev.delete()
     frequest.delete()
-    return HttpResponseRedirect(f'posts/{request.user.profile.slug}')
+    return HttpResponseRedirect(f'posts/{request.user.profile.id}')
 
 
 @login_required
@@ -160,7 +160,7 @@ def delete_friend_request(request, id):
     from_user = get_object_or_404(User, id=id)
     frequest = FriendRequest.objects.filter(from_user=from_user, to_user=request.user).first()
     frequest.delete()
-    return HttpResponseRedirect(f'posts/{request.user.profile.slug}')
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 #
 # @login_required
@@ -252,31 +252,11 @@ def search_users(request):
 #     success_url = reverse_lazy('profile')
 
 
-intalniri = [
-    {'Title': 'Hai la joaca!',
-     'Autor': 'Nicoleta',
-     'Nume': 'Catalin',
-     'Varsta': '1 an',
-     'Data': '10.10.2020',
-     'Ora': '11:00',
-     'Locatia': 'Un loc pe harta',
 
-     },
-    {'Autor': 'Nicoleta',
-     'Nume': 'Lorelai',
-     'Varsta': '4 ani',
-     'Data': '10.10.2020',
-     'Ora': '11:00',
-     'Locatia': 'Un loc pe harta',
-
-     }
-]
 
 
 def home(request):
-    context = {
-        'intalniri': intalniri,
-    }
+    context = {}
     return render(request, 'posts/home.html', context)
 
 
@@ -341,7 +321,8 @@ def create_event(request):
         form = NewEventForm(request.POST, request.FILES)
         if form.is_valid():
             data = form.save(commit=False)
-            data.user_name = user
+            data.author= user
+
             data.save()
             messages.success(request, f'Intalnire creeata!')
             return redirect('home')
@@ -353,7 +334,7 @@ def create_event(request):
 class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Event
     fields = ['title', 'location', 'author', 'nume', 'varsta' ]
-    template_name = '/create_event.html'
+    template_name = 'posts/create_event.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user

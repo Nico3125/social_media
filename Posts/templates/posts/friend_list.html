@@ -2,27 +2,31 @@
 {% load static %}
 {% block content %}
 
+
 <div class="container">
-    <div class="row">
-        <div class="col-md-8">
-            {% if friends %}
-            <div class="card card-signin my-5">
-                <div class="card-body">
-                    {% for friend in friends %}
-                    <a href="{{ user_p.get_absolute_url }}">
-                        <img
-                                src="{{ user_p.avatar.url }}"
-                                class="rounded mr-2"
-                                width="80"
-                                height="80"
-                                alt="imaginea de profil"/>
-                    </a>
-                    <a class="text-dark" href="{{ user_p.get_absolute_url }}"><b>{{ friends }}</b></a>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
+  <div class="row">
+    <div class="col-md-8">
+
+      {% if  friend_list %}
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          {% for p in friend_list  %}
+          <a href="{{ p.get_absolute_url }}"><img src="{{ p.avatar.url }}" class="card-img-top" width="40" height="40" alt=""/></a>
+          <a class="text-dark" href="{{ p.get_absolute_url }}"><b>{{ p }}</b></a>
+          <br /><br />
+          {% endfor %}
         </div>
+      </div>
+      {% else %}
+       <hr>
+          <hr>
+      <h5>
+
+          Inca nu ai prieteni!
+          <a href="{% url 'users_list' %}">Cauta prieteni</a>
+      </h5>
+      {% endif %}
+      </div>
     </div>
-</div>
+  </div>
 {% endblock content %}
