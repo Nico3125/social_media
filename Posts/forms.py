@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+
 from .models import Event
 from .models import Profile
 
@@ -8,7 +9,11 @@ from .models import Profile
 class NewEventForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ['title', 'nume', 'varsta', 'location', ]
+        fields = ['title', 'nume', 'varsta', 'location', 'location_lat', 'location_lon', ]
+        widgets = {
+            'location_lat': forms.HiddenInput(),
+            'location_lon': forms.HiddenInput(),
+        }
 
 
 class CreateUserForm(UserCreationForm):

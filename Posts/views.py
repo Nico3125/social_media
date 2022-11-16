@@ -12,9 +12,11 @@ from .forms import NewEventForm
 from .models import Event
 from .models import Profile, FriendRequest
 
+# from django.shortcuts import render_to_response
+
 
 def index(request):
-    return render(request, 'index.html')
+    return render('index.html', { })
 
 
 def inregistrare(request):
@@ -31,9 +33,7 @@ def inregistrare(request):
     return render(request, 'posts/inregistrare.html', context)
 
 
-def login(request):
-    context = {}
-    return render(request, 'posts/login.html', context)
+
 
 
 User = get_user_model()
@@ -264,6 +264,8 @@ def about(request):
     return render(request, 'posts/about.html')
 
 
+
+
 class EventListView(ListView):
     model = Event
     template_name = 'home.html'
@@ -273,9 +275,6 @@ class EventListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(EventListView, self).get_context_data(**kwargs)
-        # if self.request.user.is_authenticated:
-        #     liked = [i for i in Event.objects.all() if Like.objects.filter(user=self.request.user, post=i)]
-        #     context['liked_post'] = liked
         return context
 
 

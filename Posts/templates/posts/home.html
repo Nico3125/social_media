@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base3.html' %}
 
 {% block title %}Acasa{% endblock %}
 
@@ -6,33 +6,27 @@
 
 
 <div class="intro">
+<div class="container">
 
-        {% if user.is_authenticated %}
-            <h1> Salutare, {{ user.username }}! </h1>
-            <hr>
-            <h3>Programeaza online intalnirile de joaca ale copilului</h3>
-            <hr>
-             <a class="nav-item nav-link" href="{% url 'create-event' %}"
+      {% if user.is_authenticated %}
+          <h4 class="title">   Salutare, {{ user.username }}! </h4>
+        <p class="card-text">Programeaza online intalnirile de joaca ale copilului!</p>
+      <a class="nav-item nav-link" href="{% url 'create-event' %}"
             ><button>Creeaza intalnire de joaca!</button></a>
 
-        {% else %}
-            <h3>Programeaza online intalnirile de joaca ale copilului</h3>
-            <hr>
-            <p>Nu esti conectat..</p>
+  </div>
+</div>
+
+    {% else %}
+<div class="container">
+    <h2>Programeaza online intalnirile de joaca ale copilului!</h2>
+
+            <h3>Nu esti conectat..</h3>
              <a href={'login'} class="ml-2"></a>
             <a href="{% url 'login' %}">
             <button> Conecteaza-te</button></a>
         {% endif %}
-     <hr>
-     <hr>
-     <hr>
-     <form class="form-inline my-4 my-lg-4 ml-4" action="{% url 'search-events' %}" method="get">
-                {% csrf_token %}
-         <input name="q" type="text" placeholder="Cauta evenimente.."/>
-         <button class="btn btn-info my-2 my-sm-0 mr-2" type="submit">
-                    Cauta..
-                </button>
-            </form>
+</div>
 
 </div>
 

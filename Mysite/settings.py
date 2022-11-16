@@ -12,11 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -28,7 +25,6 @@ SECRET_KEY = 'django-insecure-bkh5-9m2+(=q91hlo-l(0$)4dflfvgc^jy(3*77z&rrdl9=3r-
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -42,11 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'location_field.apps.DefaultConfig',
+    'osm_field',
     'crispy_forms',
     # 'django.contrib.gis',
-   # 'mapwidgets',
-   #  'django.contrib.gis.db.backends.postgis',
-
+    # 'mapwidgets',
+    #  'django.contrib.gis.db.backends.postgis',
 
 ]
 
@@ -80,7 +76,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Mysite.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -92,7 +87,6 @@ DATABASES = {
 
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -112,7 +106,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -124,29 +117,32 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-MEDIA_ROOT= os.path.join(BASE_DIR,"media")
-MEDIA_URL= '/media/'
-CRISPY_TEMPLATE_PACK= 'bootstrap4'
-LOGOUT_REDIRECT_URL= 'posts_acasa'
-LOGIN_REDIRECT_URL= 'profile'
+STATICFILES_DIRS=[os.path.join(BASE_DIR,'static')]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = '/media/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGOUT_REDIRECT_URL = 'posts_acasa'
+LOGIN_REDIRECT_URL = 'profile'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOCATION_FIELD= {
-'provider.openstreetmap.max_zoom': 18,
+LOCATION_FIELD = {
+    'provider.openstreetmap.max_zoom': 18,
 }
 
-#email configs
+# email configs
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'alexenicoleta24@gmail.com'
-EMAIL_HOST_PASSWORD ='ownukwitnzbgdepm'
+EMAIL_HOST_PASSWORD = 'ownukwitnzbgdepm'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'default from email'

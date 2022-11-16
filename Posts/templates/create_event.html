@@ -2,12 +2,38 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
+<script type="text/javascript" src="{% static 'js/vendor/jquery-2.1.0.min.js' %}"></script>
+<link href="{% static 'css/vendor/leaflet.css' %}" type="text/css" media="screen" rel="stylesheet"/>
+<link href="{% static 'css/osm_field.css' %}" type="text/css" media="screen" rel="stylesheet"/>
+<script type="text/javascript" src="{% static 'js/vendor/leaflet.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/osm_field.js' %}"></script>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
-     integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
-     crossorigin=""/>
+<link rel="stylesheet" href="{% static 'css/example.css' %}">
+<!-- Either serve jQuery yourself -->
+
+
 <style>
-    #map { height: 180px; }
+     p   {
+        font-size: 35px;
+        font-weight: bold;
+        color: #11a1bb;
+        margin: 40px 0;
+     }
+    map {
+        height: 180px;
+    }
+    .text-blue {
+        font-weight: bold;
+        color: #11a1bb;
+    }
+    #mapid { height: 180px; }
+
+
+
+
+
+
 </style>
 
 
@@ -17,34 +43,35 @@
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card card-signin my-5">
                 <div class="card-body">
-                    <h5 class="card-title text-center"><b>Intalnire</b></h5>
-                    <form class="form-signin" method="POST" enctype="multipart/form-data">
+                    <h5 class="card-title text-center text-blue">Intalnire</h5>
+                    {{ form.media }}
+                    <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
 
                         <fieldset class="form-group">
-                            <br/>
                             {{ form|crispy }}
-                            <div id="map"></div>
+                            <div id="map"
+                                 style="height: 180px; margin-top:5px;">
+                            </div>
+
+                            <script>
+
+                            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(mymap);
+
+                            </script>
+                            <button class="btn btn-info my-2 my-sm-0 ml-4" type="submit">Creeaza</button>
                         </fieldset>
-                        <div class="form-group">
-                            <button
-                                    class="btn btn-lg btn-primary btn-block text-uppercase"
-                                    type="submit"
-                            >
-                                Creeaza
-                            </button
-                            >
-                            <br/>
-                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
- <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
-     integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
-     crossorigin=""></script>
+<script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+        integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+        crossorigin=""></script>
 {% endblock content %}
 {% block jsfiles %}
 {% endblock jsfiles %}
